@@ -21,8 +21,16 @@
 {
     id value = [objectData valueForKeyPath:keyPath];
     
+    #warning What's the use case for this loop?
+    
+    while ([value isKindOfClass:[NSArray class]])
+    {
+        value = [(NSArray *)value objectAtIndex:0];
+    }
+    
     NSAttributeType attributeType = [self attributeType];
     NSString *desiredAttributeType = [[self userInfo] valueForKey:kMagicalRecordImportAttributeValueClassNameKey];
+    
     if (desiredAttributeType) 
     {
         if ([desiredAttributeType hasSuffix:@"Color"])
